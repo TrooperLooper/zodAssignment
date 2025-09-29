@@ -9,10 +9,6 @@ app.get("/ping", (req, res) => {
   res.json({ message: "pong" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
-});
-
 app.get("/random-person", async (req, res) => {
   try {
     const response = await fetch("https://randomuser.me/api/");
@@ -27,7 +23,6 @@ app.get("/random-person", async (req, res) => {
         .status(400)
         .json({ error: "Invalid person data", details: validatePerson.error });
     } else {
-      // If valid, send the person
       res.json(validatePerson.data);
     }
   } catch (error) {
@@ -38,6 +33,10 @@ app.get("/random-person", async (req, res) => {
 const personSchema = z.object({
   fullName: z.string(),
   country: z.string(),
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
 });
 
 /*
